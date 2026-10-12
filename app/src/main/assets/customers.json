@@ -1,0 +1,602 @@
+{
+  "customers": [
+    {
+      "id": "CUST004",
+      "name": "Elon Musk",
+      "phone": "+1-408-555-2198",
+      "profile": "Business owner running a premium specialty food business and preparing for US market expansion. Evaluating working capital renewal, overdraft enhancement, treasury optimization, and vendor payment automation. Also exploring education financing options for daughter's upcoming university admission. Prefers practical guidance, proactive financial advice, and document-ready next steps.",
+      "faceImage": "musk_face.jpg",
+      "bank": "Wells Fargo Bank",
+      "lastVisit": "2026-06-19",
+      "accounts": [
+        {
+          "accountNumber": "XXXX-2048",
+          "type": "Wells Fargo Premier Business Checking",
+          "balance": "USD 485,200",
+          "status": "Active"
+        },
+        {
+          "accountNumber": "XXXX-3478",
+          "type": "Wells Fargo BusinessLine Business Credit",
+          "balance": "Limit USD 300,000",
+          "status": "Renewal due in 45 days"
+        },
+        {
+          "accountNumber": "XXXX-9812",
+          "type": "Wells Fargo Business High Yield Savings",
+          "balance": "USD 128,750",
+          "status": "Active"
+        },
+        {
+          "accountNumber": "XXXX-5510",
+          "type": "Wells Fargo Edge Business Card",
+          "balance": "USD 14,320 / Limit USD 75,000",
+          "status": "Active, autopay enrolled"
+        }
+      ],
+      "transactions": [
+        {
+          "id": "TXN-SS-001",
+          "date": "2026-06-20",
+          "description": "Customer receivable from enterprise buyer",
+          "category": "Receivable",
+          "amount": "USD 148,000",
+          "direction": "Credit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SS-002",
+          "date": "2026-06-18",
+          "description": "Vendor payment via Zelle Pay - packaging and logistics supplier",
+          "category": "Vendor payment",
+          "amount": "USD 92,500",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SS-003",
+          "date": "2026-06-15",
+          "description": "Business payroll processing",
+          "category": "Payroll",
+          "amount": "USD 38,400",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SS-004",
+          "date": "2026-06-12",
+          "description": "Wells Fargo Edge Business Card - trade show booth deposit",
+          "category": "Card purchase",
+          "amount": "USD 6,750",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SS-005",
+          "date": "2026-06-08",
+          "description": "Zelle Pay instant transfer received from co-owner",
+          "category": "Transfer",
+          "amount": "USD 25,000",
+          "direction": "Credit",
+          "status": "Settled"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-06-19",
+          "type": "Relationship meeting",
+          "notes": "Requested Wells Fargo BusinessLine renewal checklist, treasury optimization recommendations, and projected cash-flow template."
+        },
+        {
+          "date": "2026-06-10",
+          "type": "Financial planning session",
+          "notes": "Discussed LifeSync goal about daughter's upcoming university applications and explored Wells Fargo education loan options, co-borrower requirements, and repayment planning."
+        }
+      ],
+      "goals": [
+        {
+          "category": "Business",
+          "objective": "Renew Wells Fargo BusinessLine business credit and improve cash-flow efficiency"
+        },
+        {
+          "category": "Family",
+          "objective": "Secure education financing for daughter's undergraduate degree starting Fall 2027 in Harvard University"
+        }
+      ],
+      "educationLoanInterest": {
+        "borrower": "Daughter",
+        "purpose": "Undergraduate university education",
+        "targetAmount": "USD 180,000",
+        "status": "Researching options",
+        "preferences": [
+          "Flexible repayment",
+          "Parent co-borrower structure",
+          "Wells Fargo relationship pricing discount",
+          "Deferred payments during study period"
+        ]
+      },
+      "nextBestActions": [
+        "Initiate Wells Fargo BusinessLine renewal",
+        "Prepare Wells Fargo education loan prequalification package",
+        "Review cash-flow and debt capacity"
+      ],
+      "OpenComplaints": [
+        "Unexpected Fees - My bank charged overdraft or maintenance fees that were not clearly explained.",
+        "Account Access Problem - My account was frozen or restricted without proper notice, leaving me unable to pay bills or access my funds."
+      ]
+    },
+    {
+      "id": "CUST005",
+      "name": "Donald Trump",
+      "phone": "+1-408-555-2198",
+      "profile": "Business owner running a premium specialty food business and preparing for US market expansion. Evaluating working capital renewal, overdraft enhancement, treasury optimization, and vendor payment automation. Also exploring education financing options for daughter's upcoming university admission. Prefers practical guidance, proactive financial advice, and document-ready next steps.",
+      "faceImage": "trump_face.png",
+      "bank": "Wells Fargo Bank",
+      "lastVisit": "2026-06-19",
+      "accounts": [
+        {
+          "accountNumber": "XXXX-2048",
+          "type": "Wells Fargo Premier Business Checking",
+          "balance": "USD 485,200",
+          "status": "Active"
+        },
+        {
+          "accountNumber": "XXXX-3478",
+          "type": "Wells Fargo BusinessLine Business Credit",
+          "balance": "Limit USD 300,000",
+          "status": "Renewal due in 45 days"
+        },
+        {
+          "accountNumber": "XXXX-9812",
+          "type": "Wells Fargo Business High Yield Savings",
+          "balance": "USD 128,750",
+          "status": "Active"
+        },
+        {
+          "accountNumber": "XXXX-5510",
+          "type": "Wells Fargo Edge Business Card",
+          "balance": "USD 14,320 / Limit USD 75,000",
+          "status": "Active, autopay enrolled"
+        }
+      ],
+      "transactions": [
+        {
+          "id": "TXN-SS-001",
+          "date": "2026-06-20",
+          "description": "Customer receivable from enterprise buyer",
+          "category": "Receivable",
+          "amount": "USD 148,000",
+          "direction": "Credit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SS-002",
+          "date": "2026-06-18",
+          "description": "Vendor payment via Zelle Pay - packaging and logistics supplier",
+          "category": "Vendor payment",
+          "amount": "USD 92,500",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SS-003",
+          "date": "2026-06-15",
+          "description": "Business payroll processing",
+          "category": "Payroll",
+          "amount": "USD 38,400",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SS-004",
+          "date": "2026-06-12",
+          "description": "Wells Fargo Edge Business Card - trade show booth deposit",
+          "category": "Card purchase",
+          "amount": "USD 6,750",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SS-005",
+          "date": "2026-06-08",
+          "description": "Zelle Pay instant transfer received from co-owner",
+          "category": "Transfer",
+          "amount": "USD 25,000",
+          "direction": "Credit",
+          "status": "Settled"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-06-19",
+          "type": "Relationship meeting",
+          "notes": "Requested Wells Fargo BusinessLine renewal checklist, treasury optimization recommendations, and projected cash-flow template."
+        },
+        {
+          "date": "2026-06-10",
+          "type": "Financial planning session",
+          "notes": "Discussed LifeSync goal about daughter's upcoming university applications and explored Wells Fargo education loan options, co-borrower requirements, and repayment planning."
+        }
+      ],
+      "goals": [
+        {
+          "category": "Business",
+          "objective": "Renew Wells Fargo BusinessLine business credit and improve cash-flow efficiency"
+        },
+        {
+          "category": "Family",
+          "objective": "Secure education financing for daughter's undergraduate degree starting Fall 2027 in Harvard University"
+        }
+      ],
+      "educationLoanInterest": {
+        "borrower": "Daughter",
+        "purpose": "Undergraduate university education",
+        "targetAmount": "USD 180,000",
+        "status": "Researching options",
+        "preferences": [
+          "Flexible repayment",
+          "Parent co-borrower structure",
+          "Wells Fargo relationship pricing discount",
+          "Deferred payments during study period"
+        ]
+      },
+      "nextBestActions": [
+        "Initiate Wells Fargo BusinessLine renewal",
+        "Prepare Wells Fargo education loan prequalification package",
+        "Review cash-flow and debt capacity"
+      ],
+      "OpenComplaints": [
+        "Unexpected Fees - My bank charged overdraft or maintenance fees that were not clearly explained.",
+        "Account Access Problem - My account was frozen or restricted without proper notice, leaving me unable to pay bills or access my funds."
+      ]
+    },
+    {
+      "id": "CUST006",
+      "name": "Kundanika Reddy",
+      "phone": "+1-408-555-3164",
+      "profile": "Software engineer at a Bay Area tech company and a growing Wells Fargo relationship customer. Saving toward a first home purchase in the South Bay within the next 12-18 months and wants to understand mortgage prequalification, down payment planning, and how to improve the credit profile before applying. Recently changed employers and is consolidating an old 401(k). Sends money to family in India every month and wants lower-cost international transfers. Prefers clear, numbers-first answers and digital follow-ups over branch visits.",
+      "faceImage": "kundanika_face.png",
+      "bank": "Wells Fargo Bank",
+      "lastVisit": "2026-09-24",
+      "accounts": [
+        {
+          "accountNumber": "XXXX-6621",
+          "type": "Wells Fargo Prime Checking",
+          "balance": "USD 18,940",
+          "status": "Active, direct deposit enrolled"
+        },
+        {
+          "accountNumber": "XXXX-6638",
+          "type": "Wells Fargo Way2Save Savings - Home Down Payment",
+          "balance": "USD 72,350",
+          "status": "Active, USD 2,500 monthly auto-transfer"
+        },
+        {
+          "accountNumber": "XXXX-7104",
+          "type": "Wells Fargo Autograph Visa Card",
+          "balance": "USD 1,284 / Limit USD 15,000",
+          "status": "Active, autopay enrolled"
+        },
+        {
+          "accountNumber": "XXXX-8890",
+          "type": "Wells Fargo Intuitive Investor - Rollover IRA",
+          "balance": "USD 41,600",
+          "status": "Pending 401(k) rollover deposit"
+        }
+      ],
+      "transactions": [
+        {
+          "id": "TXN-KR-001",
+          "date": "2026-09-30",
+          "description": "Payroll direct deposit - employer",
+          "category": "Payroll",
+          "amount": "USD 6,850",
+          "direction": "Credit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-KR-002",
+          "date": "2026-09-28",
+          "description": "Wells Fargo international wire to family account in Hyderabad, India",
+          "category": "International transfer",
+          "amount": "USD 1,200",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-KR-003",
+          "date": "2026-09-25",
+          "description": "Apartment rent payment via Zelle",
+          "category": "Rent",
+          "amount": "USD 3,150",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-KR-004",
+          "date": "2026-09-20",
+          "description": "Automatic transfer to Home Down Payment savings",
+          "category": "Savings transfer",
+          "amount": "USD 2,500",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-KR-005",
+          "date": "2026-09-16",
+          "description": "Wells Fargo international wire fee",
+          "category": "Fee",
+          "amount": "USD 30",
+          "direction": "Debit",
+          "status": "Settled"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-09-24",
+          "type": "Home lending consultation",
+          "notes": "Discussed first-time homebuyer options, target purchase price around USD 950,000, and a 20% down payment goal. Requested a mortgage prequalification checklist and a comparison of 30-year fixed versus 7/6 ARM payments."
+        },
+        {
+          "date": "2026-08-12",
+          "type": "Account review",
+          "notes": "Started a 401(k) rollover from previous employer into a Wells Fargo Rollover IRA. Asked about reducing fees on monthly international transfers to India."
+        }
+      ],
+      "goals": [
+        {
+          "category": "Home",
+          "objective": "Buy a first home in the South Bay by early 2028 with a 20% down payment"
+        },
+        {
+          "category": "Retirement",
+          "objective": "Complete the 401(k) rollover and set a long-term investment allocation"
+        },
+        {
+          "category": "Family",
+          "objective": "Lower the cost of monthly money transfers to family in India"
+        }
+      ],
+      "nextBestActions": [
+        "Start Wells Fargo mortgage prequalification and share the document checklist",
+        "Confirm the 401(k) rollover deposit and review the IRA allocation",
+        "Review lower-cost international transfer options and wire fee waivers"
+      ],
+      "OpenComplaints": [
+        "International Transfer Fees - Charged a wire fee on a family transfer that was expected to be waived under the account package."
+      ]
+    },
+    {
+      "id": "CUST007",
+      "name": "Samarth Singh",
+      "phone": "+1-408-555-4720",
+      "profile": "Co-founder of an early-stage hardware startup building smart-glasses accessories, based in Sunnyvale. Recently closed a seed round and needs business banking that scales: treasury management for the raised funds, a business credit line for inventory, and merchant services for online sales. Personally planning to refinance an auto loan and start investing a portion of the founder salary. Prefers quick, practical answers and wants to handle most follow-ups through the mobile app.",
+      "faceImage": "samarth_face.png",
+      "bank": "Wells Fargo Bank",
+      "lastVisit": "2026-10-03",
+      "accounts": [
+        {
+          "accountNumber": "XXXX-4410",
+          "type": "Wells Fargo Platinum Business Checking",
+          "balance": "USD 1,240,000",
+          "status": "Active"
+        },
+        {
+          "accountNumber": "XXXX-4427",
+          "type": "Wells Fargo Business Market Rate Savings",
+          "balance": "USD 850,000",
+          "status": "Active, seed funds reserve"
+        },
+        {
+          "accountNumber": "XXXX-5193",
+          "type": "Wells Fargo Signify Business Cash Card",
+          "balance": "USD 8,960 / Limit USD 50,000",
+          "status": "Active, autopay enrolled"
+        },
+        {
+          "accountNumber": "XXXX-2276",
+          "type": "Wells Fargo Everyday Checking",
+          "balance": "USD 9,430",
+          "status": "Active, direct deposit enrolled"
+        }
+      ],
+      "transactions": [
+        {
+          "id": "TXN-SG-001",
+          "date": "2026-10-01",
+          "description": "Seed round tranche received from lead investor",
+          "category": "Investment",
+          "amount": "USD 500,000",
+          "direction": "Credit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SG-002",
+          "date": "2026-09-29",
+          "description": "Contract manufacturer deposit - prototype production run",
+          "category": "Vendor payment",
+          "amount": "USD 64,000",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SG-003",
+          "date": "2026-09-26",
+          "description": "Business payroll processing",
+          "category": "Payroll",
+          "amount": "USD 41,200",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SG-004",
+          "date": "2026-09-22",
+          "description": "Signify Business Cash Card - cloud hosting and software subscriptions",
+          "category": "Card purchase",
+          "amount": "USD 3,480",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-SG-005",
+          "date": "2026-09-18",
+          "description": "Auto loan payment - external lender",
+          "category": "Loan payment",
+          "amount": "USD 690",
+          "direction": "Debit",
+          "status": "Settled"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-10-03",
+          "type": "Business banking review",
+          "notes": "Discussed treasury options for seed funds, a USD 250,000 business line of credit for inventory, and merchant services for the online store launch. Requested a sweep account proposal."
+        },
+        {
+          "date": "2026-09-09",
+          "type": "Personal lending inquiry",
+          "notes": "Asked about refinancing an external auto loan at 8.9% APR and opening a brokerage account for monthly investing."
+        }
+      ],
+      "goals": [
+        {
+          "category": "Business",
+          "objective": "Set up a business credit line and treasury sweep before the first production run"
+        },
+        {
+          "category": "Personal",
+          "objective": "Refinance the auto loan at a lower rate and start investing USD 1,000 a month"
+        }
+      ],
+      "nextBestActions": [
+        "Send the business line of credit application and treasury sweep proposal",
+        "Set up merchant services ahead of the online store launch",
+        "Provide an auto loan refinance quote"
+      ],
+      "OpenComplaints": []
+    },
+    {
+      "id": "CUST008",
+      "name": "Ravi Yogesh",
+      "phone": "+1-415-555-6082",
+      "profile": "Wells Fargo employee working as a technical manager leading an engineering team in the Consumer Lending technology group in San Francisco, with the bank for four years. Banks with Wells Fargo using team member account benefits, including waived monthly fees and employee rate discounts. Planning to use the team member mortgage discount to buy a condo, wants to raise 401(k) contributions to capture the full company match, and is deciding how to handle vested restricted stock. Familiar with Wells Fargo products, so prefers direct, detailed answers with exact rates and fees.",
+      "faceImage": "ravi_face.png",
+      "bank": "Wells Fargo Bank",
+      "lastVisit": "2026-09-30",
+      "accounts": [
+        {
+          "accountNumber": "XXXX-3051",
+          "type": "Wells Fargo Prime Checking - Team Member Benefit (fees waived)",
+          "balance": "USD 12,780",
+          "status": "Active, payroll direct deposit"
+        },
+        {
+          "accountNumber": "XXXX-3068",
+          "type": "Wells Fargo Platinum Savings - Team Member Rate",
+          "balance": "USD 96,400",
+          "status": "Active, condo down payment fund"
+        },
+        {
+          "accountNumber": "XXXX-4712",
+          "type": "Wells Fargo Active Cash Card",
+          "balance": "USD 2,145 / Limit USD 20,000",
+          "status": "Active, autopay enrolled"
+        },
+        {
+          "accountNumber": "XXXX-9934",
+          "type": "Wells Fargo & Company 401(k) Plan",
+          "balance": "USD 118,300",
+          "status": "Contributing 4% of salary, company match up to 6%"
+        },
+        {
+          "accountNumber": "XXXX-9950",
+          "type": "WellsTrade Brokerage - Vested Restricted Share Rights",
+          "balance": "USD 34,900",
+          "status": "Active, 210 shares vested"
+        }
+      ],
+      "transactions": [
+        {
+          "id": "TXN-RY-001",
+          "date": "2026-09-30",
+          "description": "Wells Fargo payroll direct deposit",
+          "category": "Payroll",
+          "amount": "USD 5,920",
+          "direction": "Credit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-RY-002",
+          "date": "2026-09-27",
+          "description": "Restricted share rights vesting - 60 shares deposited to WellsTrade",
+          "category": "Equity compensation",
+          "amount": "USD 9,960",
+          "direction": "Credit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-RY-003",
+          "date": "2026-09-25",
+          "description": "Apartment rent payment via Bill Pay",
+          "category": "Rent",
+          "amount": "USD 3,400",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-RY-004",
+          "date": "2026-09-20",
+          "description": "Automatic transfer to Platinum Savings - condo fund",
+          "category": "Savings transfer",
+          "amount": "USD 2,000",
+          "direction": "Debit",
+          "status": "Settled"
+        },
+        {
+          "id": "TXN-RY-005",
+          "date": "2026-09-14",
+          "description": "Active Cash Card - airline tickets for family visit",
+          "category": "Card purchase",
+          "amount": "USD 1,380",
+          "direction": "Debit",
+          "status": "Settled"
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-09-30",
+          "type": "Home lending consultation",
+          "notes": "Reviewed the team member mortgage discount for a condo purchase around USD 780,000. Asked for a rate comparison with and without the employee discount and the prequalification document list."
+        },
+        {
+          "date": "2026-08-21",
+          "type": "Financial planning session",
+          "notes": "Discussed increasing 401(k) contributions from 4% to 6% to get the full company match, and options for selling or holding vested restricted shares, including tax impact."
+        }
+      ],
+      "goals": [
+        {
+          "category": "Home",
+          "objective": "Buy a condo in San Francisco in 2027 using the team member mortgage discount"
+        },
+        {
+          "category": "Retirement",
+          "objective": "Raise 401(k) contributions to 6% to capture the full company match"
+        },
+        {
+          "category": "Investments",
+          "objective": "Set a plan for vested restricted shares to avoid concentration in company stock"
+        }
+      ],
+      "nextBestActions": [
+        "Start mortgage prequalification with the team member discount applied",
+        "Update 401(k) contribution to 6% through the employee benefits portal",
+        "Schedule a review of vested shares and diversification options"
+      ],
+      "OpenComplaints": [
+        "Benefit Not Applied - Team member rate discount was not reflected on the Platinum Savings account for August."
+      ]
+    }
+  ]
+}
