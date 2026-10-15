@@ -178,3 +178,4 @@ Normal power-off is `sudo poweroff`; wait until SSH disconnects and the Jetson f
 ## Rollback
 
 Keep the previous repository revision and `.env` backup locally. To roll back code, restore that known revision without touching face assets or the secret, rerun `bash inference_server/setup_jetson.sh`, and repeat validation. Never roll back by exposing either service or changing Meta DAT from 0.7.0. Switching to Muse is a backend choice, not a rollback step.
+https://drive.google.com/file/d/1LbI8TowWLwHs5JPZ9QtjgI1K1vcKHwqf/view?usp=drivesdk
