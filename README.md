@@ -51,3 +51,7 @@ $env:ANDROID_HOME="$env:LOCALAPPDATA\Android\Sdk"
 Meta Device Access Toolkit remains pinned to 0.7.0. Face recognition, speech recognition, TTS, customer data, and glasses streaming/capture remain unchanged.
 
 Speech recognition uses Android's system `SpeechRecognizer`. Depending on the phone and its settings, that service may itself process audio in the cloud; this is independent of `AI_BACKEND`.
+
+https://drive.google.com/file/d/1LbI8TowWLwHs5JPZ9QtjgI1K1vcKHwqf/view?usp=drivesdk
+
+
