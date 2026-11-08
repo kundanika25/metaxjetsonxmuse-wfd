@@ -6,7 +6,7 @@
 - Supported power supply, active fan, and a data-capable phone-to-Jetson USB cable.
 - Flash JetPack 6.2 using the `jetson-orin-nano-devkit-super` configuration. A package-only upgrade does not guarantee the 25W modes are installed.
 - Boot from NVMe, select the 25W power mode, verify the fan spins, and copy this repository to the Jetson.
-- Internet is needed only while installing packages and pulling the model.
+- Internet is needed while installing packages and pulling the model, and at runtime for the Muse backend. Use the USB Wi-Fi adapter described in [Jetson network access](#jetson-network-access-usb-wi-fi).
 
 The setup script rejects the wrong architecture/SKU, non-8GB memory, missing JetPack 6.2/CUDA, non-NVMe root, low disk space, unavailable 25W mode, or missing fan controls.
 
@@ -23,6 +23,39 @@ The script is idempotent. It installs ADB, Python dependencies and ARM64 Ollama;
 If `.env` does not exist, enter a strong token at the hidden prompt or leave it blank to generate one. Store a secure copy for workstation APK configuration. Do not print or commit it.
 
 Successful validation writes non-secret evidence under the ignored `inference_server/jetson-validation/` directory. Setup fails unless `ollama ps` reports `100% GPU`, swap use remains at or below 512MB, and observed temperatures remain below 85°C; CPU fallback is never accepted.
+
+## Jetson network access (USB Wi-Fi)
+
+Muse needs internet on the Jetson, and the laptop is not needed at runtime. The Jetson gets internet from a USB Wi-Fi adapter: a Zebronics USB150WF1 (Realtek RTL8188FTV, USB ID `0bda:f179`, **2.4 GHz only**).
+
+One-time driver install (community `rtl8188fu` driver, built with DKMS so it survives kernel updates):
+
+```bash
+sudo apt install -y build-essential git dkms linux-headers-$(uname -r)
+git clone https://github.com/kelebek333/rtl8188fu
+sudo dkms install ./rtl8188fu
+sudo cp ./rtl8188fu/firmware/rtl8188fufw.bin /lib/firmware/rtlwifi/
+echo 'options rtl8188fu rtw_power_mgnt=0 rtw_enusbss=0 rtw_ips_mode=0' | sudo tee /etc/modprobe.d/rtl8188fu.conf
+sudo modprobe rtl8188fu
+nmcli device status        # adapter appears as wlx002e2d306bec
+```
+
+Keep the adapter in the USB port where it was detected. Join a 2.4 GHz network with a strong signal (preferably the same router as the laptop):
+
+```bash
+nmcli device wifi rescan
+nmcli device wifi list                       # check SIGNAL; avoid weak networks
+sudo nmcli device wifi connect "<SSID>" password "<password>"
+sudo nmcli connection modify "<SSID>" connection.autoconnect-priority 10 ipv4.dhcp-timeout 90
+ip -4 addr show wlx002e2d306bec
+ping -c 3 8.8.8.8 && getent hosts api.meta.ai
+```
+
+`Secrets were required` usually means a wrong password or a weak network; `IP configuration could not be reserved` means DHCP timed out on a weak signal. Pick a stronger network.
+
+SSH from a laptop on the same network with `ssh user@ubuntu.local` (or the Jetson's Wi-Fi `192.168.1.x` address). The direct Ethernet/ICS link (Windows shares its Wi-Fi adapter to the Ethernet port; Jetson at `192.168.137.x`) remains the fallback for administration. Unplug that cable while using Wi-Fi SSH, otherwise replies can take the wrong route.
+
+The gateway and Ollama still listen only on `127.0.0.1`; joining Wi-Fi does not expose them on the LAN.
 
 ## Required Ollama memory settings
 
@@ -116,6 +149,15 @@ Use representative clear, dense, rotated, weak, and unreadable banking documents
 
 If any criterion fails, stop deployment. Do not silently change models, enable CPU fallback, or expose services.
 
-## Optional: Muse cloud backend
+## Muse backend (demo default)
 
-Setup leaves the gateway on `AI_BACKEND=ollama`, where nothing leaves the Jetson. To also use Meta's Muse API, put the key in `inference_server/.env` as `MUSE_API_KEY=...` (the file stays mode `0600` and ignored by Git), then follow [Switching between Ollama and Muse](DAILY_START_STOP.md#switching-between-ollama-and-muse). Muse receives customer records and document OCR text in every prompt; see [What Muse receives](ARCHITECTURE_OVERVIEW.md#what-muse-receives). `verify_jetson.sh` validates Ollama in both modes, and in Muse mode also checks that a key is set and that `/health` reports `"backend":"muse"`; it does not contact the Muse API.
+Setup leaves the gateway on `AI_BACKEND=ollama`, where nothing leaves the Jetson. The demo then switches to Muse and keeps Gemma as the backup. Muse is a US-only developer preview billed per use; create the key at https://dev.meta.ai/api-keys and watch spend at https://dev.meta.ai/usage. To use Meta's Muse API, put the key in `inference_server/.env` as `MUSE_API_KEY=...` (the file stays mode `0600` and ignored by Git), then follow [Switching between Ollama and Muse](DAILY_START_STOP.md#switching-between-ollama-and-muse). Muse receives customer records and document OCR text in every prompt; see [What Muse receives](ARCHITECTURE_OVERVIEW.md#what-muse-receives). `verify_jetson.sh` validates Ollama in both modes, and in Muse mode also checks that a key is set and that `/health` reports `"backend":"muse"`; it does not contact the Muse API.
+
+Recommended Muse settings for this deployment (the code defaults are lower):
+
+```ini
+MUSE_MIN_OUTPUT_TOKENS=8192
+MUSE_REASONING_EFFORT=low
+```
+
+With the code default of 2048, real document scans can fail with `Muse returned no visible text (finish_reason=length)` because hidden reasoning used up the budget.

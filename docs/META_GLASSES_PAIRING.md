@@ -24,8 +24,10 @@ You do **not** install this APK onto the glasses. Install this app only on the A
 SSH into the Jetson:
 
 ```powershell
-ssh user@192.168.137.57
+ssh user@ubuntu.local
 ```
+
+If Wi-Fi is down, use the direct Ethernet/ICS link and the Jetson's `192.168.137.x` address.
 
 Run:
 
@@ -44,6 +46,8 @@ curl --fail --show-error --silent http://127.0.0.1:11434/api/chat \
 ollama ps
 sudo systemctl start metax-gateway metax-adb-reverse
 ```
+
+Gemma is warmed even though the demo uses Muse, so it is ready as the backup.
 
 If the warmup fails once with `cudaMalloc` or `out of memory`, repeat the exact same block once.
 
@@ -65,7 +69,7 @@ active
 active
 ```
 
-Health should say `ready`, and `ollama ps` should show `100% GPU`, context `4096`, and `Forever`.
+Health should say `ready` and `"backend":"muse"` (or `ollama` if you are on the backup), and `ollama ps` should show `100% GPU`, context `4096`, and `Forever`.
 
 ## 3. Connect the phone to the Jetson
 
@@ -153,8 +157,11 @@ This is not sideloading your APK. It is Meta's own glasses-side DAT update.
 1. Tap **Start streaming**.
 2. Allow camera permission if prompted.
 3. Wait for the live preview.
-4. Tap the document scan button.
-5. Confirm OCR, analysis, and Q&A work.
+4. Say **"Meta scan"** (or tap the document scan button) with the document in view.
+5. Say **"Meta question"**, then ask about the document, to confirm OCR, analysis and Q&A work.
+6. End the document session, look at a sample customer, and say **"Meta question"** to test the customer assistant. The customer card appears once the face matches and clears about 5 seconds after they leave view.
+
+The stream keeps running with the phone screen off; a "WF Meta is streaming" notification shows while it does. Warnings such as glasses running hot, low battery or a timeout appear in the app but do not end the session.
 
 ## 9. If something fails
 
@@ -176,6 +183,19 @@ sudo systemctl restart metax-adb-reverse
 4. Reopen this app.
 5. Tap **Connect my glasses** again.
 
+### Session ends on its own
+
+The session now ends only on a critical stream error, the glasses hinge closing, permissions being revoked, or a thermal emergency. If it still ends, keep the glasses cool and charged, keep the phone near the glasses, and avoid running a 2.4 GHz phone hotspot at the same time. Capture logs with:
+
+```bash
+adb logcat -G 16M && adb logcat -c
+adb logcat | grep -E "CameraAccess:|DAT:"
+```
+
+### Voice command not recognised
+
+Speak "Meta scan" or "Meta question" clearly after the status reads "Say 'Meta scan' or 'Meta question'". The status line shows what was heard (`Heard: ...`).
+
 ### Local AI request failed
 
 Check Jetson:
@@ -186,7 +206,7 @@ curl --fail --show-error --silent http://127.0.0.1:8000/health
 ollama ps
 ```
 
-If `/health` shows `"backend":"muse"`, the Jetson also needs internet access and a valid `MUSE_API_KEY`. To fall back to local Gemma, follow [Switching between Ollama and Muse](DAILY_START_STOP.md#switching-between-ollama-and-muse).
+If `/health` shows `"backend":"muse"`, the Jetson also needs internet access and a valid `MUSE_API_KEY`. `Cannot reach the Muse API: [Errno -3] Temporary failure in name resolution` means the Jetson has no internet or DNS; see [Wi-Fi recovery](DAILY_START_STOP.md#wi-fi-recovery). `finish_reason=length` means `MUSE_MIN_OUTPUT_TOKENS` is too low. To fall back to local Gemma, follow [Switching between Ollama and Muse](DAILY_START_STOP.md#switching-between-ollama-and-muse).
 
 ### Scan works but OCR is bad
 
@@ -207,4 +227,7 @@ Retake the photo with:
 - [ ] Phone Chrome opens `http://127.0.0.1:8000/health`.
 - [ ] App **Connect my glasses** succeeds.
 - [ ] App **Start streaming** succeeds.
+- [ ] Jetson has internet (`getent hosts api.meta.ai`) and `/health` shows the expected backend.
+- [ ] "Meta scan" and "Meta question" are recognised.
 - [ ] Document scan succeeds.
+- [ ] Customer assistant answers for a recognised sample customer.

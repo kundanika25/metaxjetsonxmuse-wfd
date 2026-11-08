@@ -3,8 +3,16 @@
 ## Start
 
 1. Power the actively cooled Jetson and wait for boot.
-2. If working headlessly, connect the Windows laptop to the Jetson over the direct Ethernet/ICS link and SSH into the Jetson.
-3. Restart Ollama, compact memory, and warm the model:
+2. SSH in from a laptop on the same Wi-Fi network: `ssh user@ubuntu.local` (or the Jetson's `192.168.1.x` address). If Wi-Fi is down, use the direct Ethernet/ICS link instead (Jetson at `192.168.137.x`).
+   Confirm the Jetson has internet for Muse:
+
+   ```bash
+   nmcli device status
+   ping -c 3 8.8.8.8 && getent hosts api.meta.ai
+   ```
+
+   If this fails, see [Wi-Fi recovery](#wi-fi-recovery) or stay on Gemma.
+3. Restart Ollama, compact memory, and warm the model. Do this even when using Muse, because Gemma is the backup:
 
    ```bash
    sudo systemctl restart ollama
@@ -42,9 +50,9 @@
    ollama ps
    ```
 
-`/health` must report `ready` and the configured model. `ollama ps` must report `100% GPU`. The reverse list must contain `tcp:8000 tcp:8000`. Open `http://127.0.0.1:8000/health` on the phone, then use the Android app.
+`/health` must report `ready`, the expected `backend` (`muse` for the demo) and its model. In Muse mode also run the end-to-end `/chat` test in [Switching between Ollama and Muse](#switching-between-ollama-and-muse), because `/health` does not contact Meta. `ollama ps` must report `100% GPU`. The reverse list must contain `tcp:8000 tcp:8000`. Open `http://127.0.0.1:8000/health` on the phone, then use the Android app.
 
-The Windows laptop is only needed for headless administration, APK work, or provisioning. It is not in the runtime inference path. Do not use USB tethering or expose the loopback services on the LAN.
+The Windows laptop is only needed for SSH administration, APK work, or provisioning. It is not in the runtime path and can be disconnected once the services are running. Do not use USB tethering or expose the loopback services on the LAN.
 
 ## Required Ollama memory settings
 
@@ -89,6 +97,19 @@ adb devices -l
 
 Disconnect extra phones. For `unauthorized`, unlock the intended phone and approve the prompt. For `offline`, reconnect the data cable. Do not replace the loopback binds with LAN addresses.
 
+## Wi-Fi recovery
+
+```bash
+nmcli device status                         # wlx002e2d306bec should be "connected"
+lsusb | grep -i 0bda:f179                   # adapter detected?
+sudo modprobe rtl8188fu
+nmcli device wifi rescan && nmcli device wifi list
+sudo nmcli connection up "<SSID>"           # or: sudo nmcli device wifi connect "<SSID>" password "<password>"
+ping -c 3 8.8.8.8 && getent hosts api.meta.ai
+```
+
+If the adapter is missing from `lsusb`, reseat it in its usual USB port. On the phone, `Cannot reach the Muse API: [Errno -3] Temporary failure in name resolution` means the Jetson has no internet or DNS; fix Wi-Fi or switch to Gemma.
+
 ## Service and model recovery
 
 ```bash
@@ -117,7 +138,18 @@ To intentionally change models, edit only ignored `inference_server/.env`, run `
 
 ## Switching between Ollama and Muse
 
-The gateway uses one backend at a time, set by `AI_BACKEND` in `inference_server/.env`. Muse sends every prompt, including customer records and document OCR text, to Meta's cloud API; see [What Muse receives](ARCHITECTURE_OVERVIEW.md#what-muse-receives). Keep Ollama warmed even while Muse is active so the emergency switch is instant.
+The gateway uses one backend at a time, set by `AI_BACKEND` in `inference_server/.env`. The demo default is `muse`; `ollama` is the backup. Muse sends every prompt, including customer records and document OCR text, to Meta's cloud API; see [What Muse receives](ARCHITECTURE_OVERVIEW.md#what-muse-receives). Keep Ollama warmed even while Muse is active so the emergency switch is instant.
+
+Recommended Muse settings for this deployment (the code defaults are lower):
+
+```ini
+MUSE_MIN_OUTPUT_TOKENS=8192
+MUSE_REASONING_EFFORT=low
+```
+
+With the code default of 2048, real document scans can fail with `Muse returned no visible text (finish_reason=length)` because hidden reasoning used up the budget.
+
+Add or update them with `sed -i 's/^MUSE_MIN_OUTPUT_TOKENS=.*/MUSE_MIN_OUTPUT_TOKENS=8192/' .env` (append the line if it is missing), then restart `metax-gateway`.
 
 `.env` must already contain an `AI_BACKEND=` line and, for Muse, a non-empty `MUSE_API_KEY=` line; `setup_jetson.sh` adds both lines if missing. The `sed` commands below only replace an existing line.
 
@@ -164,18 +196,19 @@ curl -s http://127.0.0.1:8000/health; echo
 sudo systemctl stop metax-adb-reverse metax-gateway ollama
 ```
 
-Normal power-off is `sudo poweroff`; wait until SSH disconnects and the Jetson finishes shutting down before unplugging power. With `AI_BACKEND=ollama` you may disconnect networking after provisioning; all inference stays on the Jetson. `AI_BACKEND=muse` needs internet access on the Jetson.
+Normal power-off is `sudo poweroff`; wait until SSH disconnects and the Jetson finishes shutting down before unplugging power. `AI_BACKEND=muse` needs internet on the Jetson (USB Wi-Fi). With `AI_BACKEND=ollama` you may disconnect networking; all inference stays on the Jetson.
 
 ## Next-day resume checklist
 
 1. Power the Jetson and wait about two minutes.
-2. If using the direct Windows Ethernet link, confirm Windows Ethernet is `192.168.137.1`, find the Jetson in `arp -a`, then SSH to its `192.168.137.x` address.
+2. SSH with `ssh user@ubuntu.local` over Wi-Fi and confirm internet (`ping -c 3 8.8.8.8 && getent hosts api.meta.ai`). Fallback: on the direct Windows Ethernet link, confirm Windows Ethernet is `192.168.137.1`, find the Jetson in `arp -a`, then SSH to its `192.168.137.x` address.
 3. Run the Ollama restart, memory compact, and warmup block from the **Start** section.
 4. Confirm `ollama ps` shows `100% GPU`, context `4096`, and `Forever`.
 5. Connect the phone to a Jetson USB host port, authorize USB debugging if prompted, restart `metax-adb-reverse`, and confirm `adb reverse --list`.
-6. Launch the Android app and test document scan, document Q&A, and customer assistant. Document transcription runs on-device in Android through bundled ML Kit OCR; the Jetson receives text only. If you want Muse for the session, switch now (see [Switching between Ollama and Muse](#switching-between-ollama-and-muse)) and confirm `/health` reports `"backend":"muse"`.
+6. Confirm `/health` reports `"backend":"muse"` and run the Muse `/chat` test (see [Switching between Ollama and Muse](#switching-between-ollama-and-muse)). If Muse is unreachable, switch to Ollama.
+7. Launch the Android app, start streaming, and test "Meta scan", "Meta question" on the document, and the customer assistant. Document transcription runs on-device in Android through bundled ML Kit OCR; the Jetson receives text only.
 
 ## Rollback
 
 Keep the previous repository revision and `.env` backup locally. To roll back code, restore that known revision without touching face assets or the secret, rerun `bash inference_server/setup_jetson.sh`, and repeat validation. Never roll back by exposing either service or changing Meta DAT from 0.7.0. Switching to Muse is a backend choice, not a rollback step.
-https://drive.google.com/file/d/1LbI8TowWLwHs5JPZ9QtjgI1K1vcKHwqf/view?usp=drivesdk
+Demo video: https://drive.google.com/file/d/1LbI8TowWLwHs5JPZ9QtjgI1K1vcKHwqf/view?usp=drivesdk
